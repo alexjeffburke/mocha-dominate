@@ -1,4 +1,4 @@
-const jsdomGlobal = require("jsdom-global");
+const jsdomGlobal = require("{jsdom-global}");
 
 const mochaDominateSymbol = Symbol('mocha-dominate');
 
