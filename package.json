@@ -1,0 +1,33 @@
+{
+  "name": "mocha-dominate",
+  "version": "0.0.0",
+  "description": "Isolated global JSDom integration for mocha.",
+  "main": "lib/mochaDominate.js",
+  "scripts": {
+    "coverage": "nyc --reporter lcov --reporter text npm test",
+    "lint": "eslint .",
+    "test": "mocha -r ./lib/mochaDominate"
+  },
+  "author": "Alex J Burke <alex@alexjeffburke.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alexjeffburke/mocha-dominate.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jsdom-global": "^3.0.2",
+    "pirates": "^4.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-pretty-standard": "^2.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jsdom": "^14.0.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "prettier": "^1.18.2"
+  },
+  "peerDependencies": {
+    "jsdom": "^14.0.0"
+  }
+}

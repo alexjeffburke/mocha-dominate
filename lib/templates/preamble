@@ -1,0 +1,11 @@
+const jsdomGlobal = require("jsdom-global");
+
+const mochaDominateSymbol = Symbol('mocha-dominate');
+
+beforeEach(function () {
+  this[mochaDominateSymbol] = jsdomGlobal();
+});
+
+afterEach(function () {
+  this[mochaDominateSymbol]();
+});
