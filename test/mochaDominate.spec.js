@@ -15,4 +15,16 @@ describe("mocha-dominate", () => {
   it("should not allow effects to bleed between tests", () => {
     assert.strictEqual(document.body.innerHTML, "");
   });
+
+  describe("when used with other hooks", () => {
+    let someThing;
+
+    beforeEach(() => {
+      someThing = {};
+    });
+
+    it("should run the other beforeEach", () => {
+      assert.ok(typeof someThing === "object");
+    });
+  });
 });
