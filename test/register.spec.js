@@ -1,6 +1,6 @@
 const assert = require("assert");
 
-describe("mocha-dominate", () => {
+describe("mocha-dominate/register", () => {
   it("should have a global window", () => {
     assert.ok(window);
   });
