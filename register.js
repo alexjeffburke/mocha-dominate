@@ -1,1 +1,1 @@
-require("./lib/mochaDominate")();
+require("./lib/mochaDominate")(process.cwd());
