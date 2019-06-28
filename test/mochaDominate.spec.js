@@ -1,4 +1,4 @@
-const assert = require("assert");
+const expect = require("unexpected");
 const path = require("path");
 
 const mochaDominate = require("../lib/mochaDominate");
@@ -12,9 +12,27 @@ describe("mochaDominate", () => {
         const exampleproject = path.join(TESTDATA, "exampleproject");
         const output = mochaDominate.prepareHook(exampleproject);
 
-        assert.deepEqual(output, {
+        expect(output, "to equal", {
           exts: [".js", ".less"],
+          extsToExec: {},
           extsToIgnore: [".less"]
+        });
+      });
+    });
+
+    describe("when transform modules are specified", () => {
+      it("should require the transform", () => {
+        const exampleproject = path.join(TESTDATA, "exampletransform");
+        const output = mochaDominate.prepareHook(exampleproject);
+
+        expect(output, "to exhaustively satisfy", {
+          exts: [".js", ".less"],
+          extsToExec: {
+            ".less": {
+              process: expect.it("to be a function")
+            }
+          },
+          extsToIgnore: []
         });
       });
     });
