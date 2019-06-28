@@ -1,11 +1,19 @@
-const jsdomGlobal = require("{jsdom-global}");
+(function () {
+  // ensure the hooks are only registered once per process
+  if (typeof global.__mochaDominate === 'symbol') {
+    return;
+  }
 
-const mochaDominateSymbol = Symbol('mocha-dominate');
+  const mochaDominateSymbol = Symbol('mocha-dominate');
+  global.__mochaDominate = mochaDominateSymbol;
 
-beforeEach(function () {
-  this[mochaDominateSymbol] = jsdomGlobal();
-});
+  const jsdomGlobal = require("{jsdom-global}");
 
-afterEach(function () {
-  this[mochaDominateSymbol]();
-});
+  beforeEach(function () {
+    this[mochaDominateSymbol] = jsdomGlobal();
+  });
+
+  afterEach(function () {
+    this[mochaDominateSymbol]();
+  });
+})();
