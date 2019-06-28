@@ -6,7 +6,9 @@
   "scripts": {
     "coverage": "nyc --reporter lcov --reporter text npm test",
     "lint": "eslint .",
-    "test": "mocha -r ./register"
+    "test": "npm run test-core && npm run test-exec",
+    "test-core": "mocha -r ./register",
+    "test-exec": "mocha test/integration/*.spec.js"
   },
   "author": "Alex J Burke <alex@alexjeffburke.com>",
   "repository": {
