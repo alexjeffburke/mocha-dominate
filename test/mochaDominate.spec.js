@@ -10,7 +10,10 @@ describe("mochaDominate", () => {
     describe("when executed in a nested directory", () => {
       it("should find the nearest config to the execution directory", () => {
         const exampleproject = path.join(TESTDATA, "exampleproject");
-        const output = mochaDominate.prepareHook(exampleproject);
+        const output = mochaDominate.prepareHook({
+          cwd: exampleproject,
+          configFile: "package.json"
+        });
 
         expect(output, "to equal", {
           exts: [".js", ".less"],
@@ -23,7 +26,10 @@ describe("mochaDominate", () => {
     describe("when transform modules are specified", () => {
       it("should require the transform", () => {
         const exampleproject = path.join(TESTDATA, "exampletransform");
-        const output = mochaDominate.prepareHook(exampleproject);
+        const output = mochaDominate.prepareHook({
+          cwd: exampleproject,
+          configFile: "package.json"
+        });
 
         expect(output, "to exhaustively satisfy", {
           exts: [".js", ".less"],

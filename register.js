@@ -1,1 +1,4 @@
-require("./lib/mochaDominate")(process.cwd());
+require("./lib/mochaDominate")({
+  cwd: process.cwd(),
+  configFile: "package.json"
+});
