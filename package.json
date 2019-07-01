@@ -1,6 +1,6 @@
 {
   "name": "mocha-dominate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Isolated global JSDom integration for mocha.",
   "main": "lib/mochaDominate.js",
   "scripts": {
