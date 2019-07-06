@@ -1,4 +1,5 @@
 require("./lib/mochaDominate")({
   cwd: process.cwd(),
-  configFile: "package.json"
+  configFile: "package.json",
+  configModule: "mocha-dominate.config.js"
 });

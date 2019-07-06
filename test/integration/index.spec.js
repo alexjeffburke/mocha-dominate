@@ -73,4 +73,10 @@ describe("integration", () => {
 
     return spawnMochaInDir(cwd, ["-r", "../../register"]);
   });
+
+  it("should work for exampleconfig", () => {
+    const cwd = path.join(TESTDATA, "exampleconfig");
+
+    return spawnMochaInDir(cwd, ["-r", "../../register"]);
+  });
 });
