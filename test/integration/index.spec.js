@@ -106,4 +106,18 @@ describe("integration", () => {
       expect(stderr, "to contain", `invalid extension "less"`)
     );
   });
+
+  describe("when using custom extensions", () => {
+    it("should ignore missing extension (JS)", () => {
+      const cwd = path.join(TESTDATA, "exampleextensions");
+
+      return spawnMochaInDir(cwd, ["-r", "../../register", "test.js"]);
+    });
+
+    it("should handle listed extension (JSX)", () => {
+      const cwd = path.join(TESTDATA, "exampleextensions");
+
+      return spawnMochaInDir(cwd, ["-r", "../../register", "test.jsx"]);
+    });
+  });
 });
