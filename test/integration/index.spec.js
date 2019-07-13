@@ -95,4 +95,15 @@ describe("integration", () => {
 
     return spawnMochaInDir(cwd, ["-r", "../../register"]);
   });
+
+  it("should bail on invalid extension", () => {
+    const cwd = path.join(TESTDATA, "exampleconfig-bad");
+
+    return expect(
+      () => spawnMochaInDir(cwd, ["-r", "../../register"]),
+      "to be rejected"
+    ).then(({ stderr }) =>
+      expect(stderr, "to contain", `invalid extension "less"`)
+    );
+  });
 });
