@@ -1,5 +1,5 @@
 {
-  "name": "exampleproject",
+  "name": "exampletransform",
   "version": "0.0.0",
   "mocha-dominate": {
     "transform": {
