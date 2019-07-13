@@ -81,13 +81,13 @@ describe("integration", () => {
     return expect(
       () => spawnMochaInDir(cwd, ["-r", "../../register"]),
       "to be rejected"
-    ).then(({ stderr }) =>
+    ).then(err => {
       expect(
-        stderr,
+        err.stderr,
         "to contain",
         `missing transform "${cwd}/transforms/cssTransform.js"`
-      )
-    );
+      );
+    });
   });
 
   it("should work for exampleconfig", () => {
@@ -102,9 +102,9 @@ describe("integration", () => {
     return expect(
       () => spawnMochaInDir(cwd, ["-r", "../../register"]),
       "to be rejected"
-    ).then(({ stderr }) =>
-      expect(stderr, "to contain", `invalid extension "less"`)
-    );
+    ).then(err => {
+      expect(err.stderr, "to contain", `invalid extension "less"`);
+    });
   });
 
   describe("when using custom extensions", () => {
