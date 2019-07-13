@@ -1,3 +1,4 @@
+const expect = require("unexpected");
 const path = require("path");
 const { spawn } = require("child_process");
 
@@ -72,6 +73,21 @@ describe("integration", () => {
     const cwd = path.join(TESTDATA, "exampletransform");
 
     return spawnMochaInDir(cwd, ["-r", "../../register"]);
+  });
+
+  it("should bail on missing transform", () => {
+    const cwd = path.join(TESTDATA, "exampletransform-bad");
+
+    return expect(
+      () => spawnMochaInDir(cwd, ["-r", "../../register"]),
+      "to be rejected"
+    ).then(({ stderr }) =>
+      expect(
+        stderr,
+        "to contain",
+        `missing transform "${cwd}/transforms/cssTransform.js"`
+      )
+    );
   });
 
   it("should work for exampleconfig", () => {
