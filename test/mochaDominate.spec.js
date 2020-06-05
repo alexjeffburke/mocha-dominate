@@ -15,8 +15,9 @@ describe("mochaDominate", () => {
           configFile: "package.json"
         });
 
-        expect(output, "to equal", {
-          exts: [".js", ".less"],
+        expect(output, "to exhaustively satisfy", {
+          options: expect.it("to be an object"),
+          exts: [".less"],
           extsToExec: {},
           extsToIgnore: [".less"]
         });
@@ -32,7 +33,8 @@ describe("mochaDominate", () => {
         });
 
         expect(output, "to exhaustively satisfy", {
-          exts: [".js", ".less"],
+          options: expect.it("to be an object"),
+          exts: [".less"],
           extsToExec: {
             ".less": {
               process: expect.it("to be a function")

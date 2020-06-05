@@ -90,6 +90,21 @@ describe("integration", () => {
     });
   });
 
+  it("should bail on invalid extensions", () => {
+    const cwd = path.join(TESTDATA, "exampleextensions-bad");
+
+    return expect(
+      () => spawnMochaInDir(cwd, ["-r", "../../register"]),
+      "to be rejected"
+    ).then(err => {
+      expect(
+        err.stderr,
+        "to contain",
+        "allowed extensions array was not valid"
+      );
+    });
+  });
+
   it("should work for exampleconfig", () => {
     const cwd = path.join(TESTDATA, "exampleconfig");
 

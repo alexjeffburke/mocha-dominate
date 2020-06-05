@@ -1,5 +1,5 @@
 module.exports = {
-  moduleFileExtensions: [".jsx"],
+  extensions: [".jsx"],
   transform: {
     ".less": "<rootDir>/transforms/cssTransform.js"
   }
