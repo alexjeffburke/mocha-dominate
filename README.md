@@ -50,7 +50,7 @@ use in jest to allow the handling of file extensons to be customised.
 
 ```json
 {
-  "transforms": {
+  "transform": {
     ".less": "<rootDir>/test/transforms/styleTransform.js"
   }
 }
@@ -68,7 +68,7 @@ of the project and options placed within a root object:
 
 ```js#evaluate:false
 module.exports = {
-  transforms: {
+  transform: {
     // ...
   }
 };
