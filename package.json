@@ -1,6 +1,6 @@
 {
   "name": "mocha-dominate",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Isolated global JSDom integration for mocha.",
   "main": "register.js",
   "scripts": {
