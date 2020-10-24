@@ -10,6 +10,14 @@ The module can be pulled into your project by simply running:
 npm install --save-dev mocha-dominate
 ```
 
+You'll also need to install a version of jsdom - we're not prescriptive
+about this as long as it's >= 14.0.0 so you can upgrade at your own pace.
+This will pull down the latest:
+
+```
+npm install --save-dev jsdom
+```
+
 Once installed, alter the line used to execute mocha - typically the
 `npm test` target in your package.json file so it requires the hook:
 
