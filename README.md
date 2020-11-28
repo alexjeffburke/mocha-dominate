@@ -1,5 +1,9 @@
 # mocha-dominate
 
+[![NPM version](https://img.shields.io/npm/v/mocha-dominate.svg)](https://www.npmjs.com/package/mocha-dominate)
+[![Build Status](https://github.com/alexjeffburke/mocha-dominate/workflows/tests/badge.svg)](https://github.com/alexjeffburke/mocha-dominate)
+[![Coverage Status](https://img.shields.io/coveralls/alexjeffburke/mocha-dominate/master.svg)](https://coveralls.io/r/alexjeffburke/mocha-dominate?branch=master)
+
 This module provides isolated global JSDom integration for mocha.
 
 ## Use
