@@ -5,18 +5,19 @@ const mochaDominate = require("../lib/mochaDominate");
 
 const TESTDATA = path.join(__dirname, "..", "testdata");
 
-describe("mochaDominate", () => {
+describe("lib/mochaDominate", () => {
   describe("prepareHook", () => {
-    describe("when executed in a nested directory", () => {
-      it("should find the nearest config to the execution directory", () => {
-        const exampleproject = path.join(TESTDATA, "exampleproject");
+    describe("when specifying a null transform", () => {
+      it("should list the extension as ignored", () => {
+        const cwd = path.join(TESTDATA, "exampleproject");
+
         const output = mochaDominate.prepareHook({
-          cwd: exampleproject,
-          configFile: "package.json"
+          transform: { ".less": null },
+          rootDir: cwd,
+          extensions: []
         });
 
         expect(output, "to exhaustively satisfy", {
-          options: expect.it("to be an object"),
           exts: [".less"],
           extsToExec: {},
           extsToIgnore: [".less"]
@@ -24,21 +25,26 @@ describe("mochaDominate", () => {
       });
     });
 
-    describe("when transform modules are specified", () => {
-      it("should require the transform", () => {
-        const exampleproject = path.join(TESTDATA, "exampletransform");
+    describe("when specifying a path to a transform", () => {
+      it("should require the extension and list it for exec", () => {
+        const cwd = path.join(TESTDATA, "exampletransform");
+        const testTransformPath = path.join(
+          cwd,
+          "transforms",
+          "cssTransform.js"
+        );
+        const testTransform = require(testTransformPath);
+
         const output = mochaDominate.prepareHook({
-          cwd: exampleproject,
-          configFile: "package.json"
+          transform: { ".less": "<rootDir>/transforms/cssTransform.js" },
+          rootDir: cwd,
+          extensions: []
         });
 
-        expect(output, "to exhaustively satisfy", {
-          options: expect.it("to be an object"),
+        expect(output, "to equal", {
           exts: [".less"],
           extsToExec: {
-            ".less": {
-              process: expect.it("to be a function")
-            }
+            ".less": testTransform
           },
           extsToIgnore: []
         });
