@@ -22,6 +22,8 @@ This will pull down the latest:
 npm install --save-dev jsdom
 ```
 
+### Global registration
+
 Once installed, alter the line used to execute mocha - typically the
 `npm test` target in your package.json file so it requires the hook:
 
@@ -34,18 +36,53 @@ JSDom instance with the document globals exposed. Any changes made
 during test execution are automatically cleaned up and everything
 is reset prior to the next test.
 
+### Per-describe block
+
+In some situations it can be useful to limit the scope of a browser
+like environment to a single `describe()` block within a test file.
+
+This can be achieved by requiring `mocha-dominate` directly in the
+test and using the `hookEach()` export:
+
+```
+const mochaDominate = require("mocha-dominate");
+
+describe("when behaving like a browser", () => {
+  mochaDominate.hookEach();
+
+  it("should have a document available", () => {
+    // ...
+  });
+});
+```
+
 ## Configuring transforms
 
 One common issue that occurs when trying to run modern web code in
-the browser is the need to stub out additional parts of the modules
-you may wish to import.
+the browser is that non-standard import syntax is used to, for
+example, CSS or SVG assets.
 
-Projects using webpack to build for example often import or require
-non-javascript code within modules - imagine a React component that
-also laods its own stylesheet:
+This use of import is not supported natively by browsers and not
+by node.js either - in order to allow such files to be executed
+those imports need to be matched by their extension and either
+ignored or converted to a JavaScript representation that can run.
+This is done by specifying _transforms_ which are loosely modelled
+on the mechanism provided by
+[jest](https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object).
+
+This is particularly common with React code that makes use of syntax
+extensions like JSX and aims to keep indivudual component self-contained.
+
+### Allowing the import of CSS
+
+Imagine the common situation of project containg React components
+each of which has its own stylesheet. This is incredibly handy for
+ensuring each component is truly isolated, and build systems such as
+`webpack` or bundlers such as `rollup` can be configured to consume
+such modules by default. The component might something like:
 
 ```js#evaluate:false
-require("myComponent.less");
+require("MyComponent.css");
 
 class MyComponent extends React.Component {
   constructor(props) {
@@ -56,17 +93,30 @@ class MyComponent extends React.Component {
 }
 ```
 
-In order to allow seamlessly running such tests with mocha, a choice
-was made to support the `transforms` syntax made familiar from its
-use in jest to allow the handling of file extensons to be customised.
+In order to allow this component to be seamlessly imported and have
+tests run against it within mocha, it is necessary to convert that
+import into something that can be understood.
 
-```json
-{
-  "transform": {
-    ".less": "<rootDir>/test/transforms/styleTransform.js"
+```js
+module.exports = {
+  transform: {
+    ".css": "<rootDir>/path/to/transforms/cssTransform.js"
   }
-}
+};
 ```
+
+The transform itself returns some JavaScript code to take the place
+of the CSS and might look something like:
+
+```js
+module.exports = {
+  process(code, filename) {
+    return "module.exports = { cssModule: true };";
+  }
+};
+```
+
+> NOTE: the code returned is a string to be passed to eval()
 
 ## Supplying options
 
@@ -85,6 +135,11 @@ module.exports = {
   }
 };
 ```
+
+### mocha-dominate.config.cjs
+
+The CJS extension is also supported and in fact used _preferentially_ to
+support projects that are beginning the transition to native node.js ESM.
 
 ### package.json "mocha-dominate"
 
