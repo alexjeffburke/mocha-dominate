@@ -105,20 +105,31 @@ describe("integration", () => {
     });
   });
 
-  it("should work for exampleconfig", () => {
-    const cwd = path.join(TESTDATA, "exampleconfig");
+  describe("with a separate config file", () => {
+    it("should load config options from mocha.config.js", () => {
+      const cwd = path.join(TESTDATA, "exampleconfig");
 
-    return spawnMochaInDir(cwd, ["-r", "../../register"]);
-  });
+      return spawnMochaInDir(cwd, ["-r", "../../register"]);
+    });
 
-  it("should bail on invalid extension", () => {
-    const cwd = path.join(TESTDATA, "exampleconfig-bad");
+    it("should prefer config options from mocha.config.cjs", () => {
+      // if .cjs is not loaded first the test will fail as
+      // the fallback config file is missing the CSS transform
 
-    return expect(
-      () => spawnMochaInDir(cwd, ["-r", "../../register"]),
-      "to be rejected"
-    ).then(err => {
-      expect(err.stderr, "to contain", `invalid extension "less"`);
+      const cwd = path.join(TESTDATA, "exampleconfig-cjs");
+
+      return spawnMochaInDir(cwd, ["-r", "../../register"]);
+    });
+
+    it("should bail on invalid extension", () => {
+      const cwd = path.join(TESTDATA, "exampleconfig-bad");
+
+      return expect(
+        () => spawnMochaInDir(cwd, ["-r", "../../register"]),
+        "to be rejected"
+      ).then(err => {
+        expect(err.stderr, "to contain", `invalid extension "less"`);
+      });
     });
   });
 
