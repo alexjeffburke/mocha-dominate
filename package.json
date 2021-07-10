@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Isolated global JSDom integration for mocha.",
   "main": "register.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "coverage": "nyc --reporter lcov --reporter text npm test",
     "lint": "eslint .",
