@@ -12,7 +12,8 @@
     "test": "npm run test-core && npm run test-global && npm run test-exec",
     "test-core": "mocha",
     "test-global": "mocha -r ./register test/global/*.spec.js",
-    "test-exec": "mocha test/integration/*.spec.js"
+    "test-exec": "mocha test/integration/*.spec.js",
+    "version": "offline-github-changelog --next=${npm_package_version} > CHANGELOG.md && git add CHANGELOG.md"
   },
   "author": "Alex J Burke <alex@alexjeffburke.com>",
   "repository": {
@@ -31,6 +32,7 @@
     "jsdom": "^14.0.0",
     "mocha": "^8.4.0",
     "nyc": "^14.1.1",
+    "offline-github-changelog": "^1.7.0",
     "prettier": "^1.18.2",
     "unexpected": "^11.6.1"
   },
