@@ -22,7 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "jsdom-global": "^3.0.2",
+    "global-jsdom": "^8.1.0",
     "pirates": "^4.0.1"
   },
   "devDependencies": {

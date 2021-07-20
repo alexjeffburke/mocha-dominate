@@ -1,6 +1,11 @@
 const assert = require("assert");
 
 describe("mocha-dominate/register", () => {
+  it("should have a global $jsdom", () => {
+    // eslint-disable-next-line no-undef
+    assert.ok($jsdom);
+  });
+
   it("should have a global window", () => {
     assert.ok(window);
   });
